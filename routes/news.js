@@ -24,4 +24,8 @@ router.post('/', upload.single('file'), newController.addNews)
 router.put('/:id', upload.single('file'),  newController.updateNews)
 
 
+
+
+
+
 module.exports = router

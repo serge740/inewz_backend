@@ -4,16 +4,11 @@ const router = express.Router()
 const upload = require('./models/upload')
 const db = require('./models/db')
 const userController = require('./controllers/userController')
-
-router.get('/:id',(req,res)=>{
-    const sql = 'SELECT * FROM users WHERE u_id = ?'
-    db.query(sql, [req.params.id], (err, data) => {
-        if (err) return res.json(err)
-        return res.json(data)
-    })
-})
+router.get('/:id',userController.getOneUsers)
 router.get('/', userController.getAllUSers)
 
-router.put('/:id', upload.single('file'), userController.updateUsers)
+router.put('/:id', upload.single('file'), userController.updateUsersImage)
+router.put('/data/:id',userController.updateUsersData)
+router.delete('/:id', userController.deletesUsers)
 
 module.exports = router

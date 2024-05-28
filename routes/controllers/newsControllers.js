@@ -2,8 +2,9 @@ const db = require('../models/db')
 
 
 exports.getAllNews = (req,res)=>{
-    const sql = 'SELECT * FROM `news` LEFT JOIN users ON news.u_id = users.u_id'
-    db.query(sql, (err, data) => {
+    const sql = req.query.news_categories ? 'SELECT * FROM `news` LEFT JOIN users ON news.u_id = users.u_id WHERE news_categories = ? '
+    : 'SELECT * FROM `news` LEFT JOIN users ON news.u_id = users.u_id'
+    db.query(sql,[req.query.news_categories],(err, data) => {
         if (err) return res.json(err)
         return res.status(200).json(data)
     })
@@ -29,7 +30,7 @@ exports.addNews =  (req, res) => {
     const sql = 'INSERT INTO news VALUES(?)'
     const fileName = req.file.filename
     const values = [
-        req.body.id = '',
+        req.body.id=null,
         req.body.title,
         req.body.category,
         req.body.date,
@@ -56,5 +57,9 @@ exports.updateNews =  (req, res) => {
         fileName, id], (err, data) => {
             if (err) return res.json(err)
             return res.json({ inserted: true })
+        
         })
 }
+
+
+

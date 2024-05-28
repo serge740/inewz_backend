@@ -38,12 +38,12 @@ exports.SignUp = (req, res) => {
         const sql = 'INSERT INTO users VALUES(?)'
         console.log(req.body);
         const values = [
-            req.body.id = '',
+            req.body.id=null,
             req.body.name,
             req.body.password,
             req.body.email,
             fileName,
-            req.body.basic='basic'
+            req.body.role='basic'
         ]
         console.log(values);
 
